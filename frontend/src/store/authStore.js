@@ -1,81 +1,110 @@
 import { create } from 'zustand';
-import axios from 'axios';
+import { persist } from 'zustand/middleware';
+import API from '../api/axios';
 
-const useAuthStore = create((set, get) => ({
-  user: JSON.parse(localStorage.getItem('user') || 'null'),
-  token: localStorage.getItem('token') || null,
-  isAuthenticated: !!localStorage.getItem('token'),
-  loading: false,
-  error: null,
-
-  login: async (credentials) => {
-    set({ loading: true, error: null });
-    try {
-      const { data } = await axios.post('/api/auth/login', credentials);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data));
-      set({
-        user: data,
-        token: data.token,
-        isAuthenticated: true,
-        loading: false
-      });
-      return data;
-    } catch (error) {
-      set({
-        loading: false,
-        error: error.response?.data?.message || 'Login failed'
-      });
-      throw error;
-    }
-  },
-
-  register: async (userData) => {
-    set({ loading: true, error: null });
-    try {
-      const { data } = await axios.post('/api/auth/register', userData);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data));
-      set({
-        user: data,
-        token: data.token,
-        isAuthenticated: true,
-        loading: false
-      });
-      return data;
-    } catch (error) {
-      set({
-        loading: false,
-        error: error.response?.data?.message || 'Registration failed'
-      });
-      throw error;
-    }
-  },
-
-  logout: () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    set({
+const useAuthStore = create(
+  persist(
+    (set, get) => ({
       user: null,
       token: null,
-      isAuthenticated: false
-    });
-  },
+      refreshToken: null,
+      isAuthenticated: false,
+      loading: false,
+      error: null,
 
-  updateProfile: async (profileData) => {
-    try {
-      const { data } = await axios.put('/api/auth/profile', profileData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      login: async (credentials) => {
+        set({ loading: true, error: null });
+        try {
+          const { data } = await API.post('/auth/login', credentials);
+          
+          set({
+            user: data.user,
+            token: data.token,
+            refreshToken: data.refreshToken,
+            isAuthenticated: true,
+            loading: false,
+            error: null,
+          });
+          
+          return data;
+        } catch (error) {
+          const message = error.response?.data?.message || 'Login failed';
+          set({
+            loading: false,
+            error: message,
+          });
+          throw error;
         }
-      });
-      set({ user: data });
-      localStorage.setItem('user', JSON.stringify(data));
-      return data;
-    } catch (error) {
-      throw error;
+      },
+
+      register: async (userData) => {
+        set({ loading: true, error: null });
+        try {
+          const { data } = await API.post('/auth/register', userData);
+          
+          set({
+            user: data.user,
+            token: data.token,
+            refreshToken: data.refreshToken,
+            isAuthenticated: true,
+            loading: false,
+            error: null,
+          });
+          
+          return data;
+        } catch (error) {
+          const message = error.response?.data?.message || 'Registration failed';
+          set({
+            loading: false,
+            error: message,
+          });
+          throw error;
+        }
+      },
+
+      logout: () => {
+        set({
+          user: null,
+          token: null,
+          refreshToken: null,
+          isAuthenticated: false,
+          loading: false,
+          error: null,
+        });
+      },
+
+      updateProfile: async (profileData) => {
+        try {
+          const { data } = await API.put('/auth/profile', profileData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          
+          set({
+            user: data.user,
+            error: null,
+          });
+          
+          return data;
+        } catch (error) {
+          throw error;
+        }
+      },
+
+      setUser: (user) => set({ user }),
+      clearError: () => set({ error: null }),
+    }),
+    {
+      name: 'auth-storage',
+      partialize: (state) => ({
+        user: state.user,
+        token: state.token,
+        refreshToken: state.refreshToken,
+        isAuthenticated: state.isAuthenticated,
+      }),
     }
-  }
-}));
+  )
+);
 
 export default useAuthStore;
