@@ -1,6 +1,6 @@
 import express from 'express';
 import { createSale, getSales, getSale, getInvoice } from '../controllers/salesController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { protect } from '../middleware/authMiddlewere.js';
 import { body } from 'express-validator';
 
 const router = express.Router();
