@@ -7,7 +7,7 @@ import {
   deleteProduct,
   getProductHistory
 } from '../controllers/productController.js';
-import { protect, authorize } from '../middleware/authMiddleware.js';
+import { protect, authorize } from '../middleware/authMiddlewere.js';
 import { body } from 'express-validator';
 import { upload } from '../middleware/uploadMiddleware.js';
 
