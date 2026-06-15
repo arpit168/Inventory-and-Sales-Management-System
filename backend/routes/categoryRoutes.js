@@ -5,23 +5,46 @@ import {
   getCategory,
   createCategory,
   updateCategory,
-  deleteCategory
+  deleteCategory,
+  getCategoryProducts
 } from '../controllers/categoryController.js';
 import { protect, authorize } from '../middleware/authMiddleware.js';
-import { categoryValidationRules } from '../middleware/validationMiddleware.js';
+import { categoryValidationRules, validate } from '../middleware/validationMiddleware.js';
 
 const router = express.Router();
 
+// Public routes (protected)
+router.use(protect);
+
+// Get all categories with pagination and search
 router.route('/')
-  .get(protect, getCategories)
-  .post(protect, authorize('admin', 'manager'), categoryValidationRules, createCategory);
+  .get(getCategories)
+  .post(
+    authorize('admin', 'manager'),
+    validate(categoryValidationRules),
+    createCategory
+  );
 
-router.get('/all', protect, getAllCategories);
-router.get('/search', protect, getCategories);
+// Get all categories without pagination (for dropdowns)
+router.get('/all', getAllCategories);
 
+// Search categories
+router.get('/search', getCategories);
+
+// Get single category
 router.route('/:id')
-  .get(protect, getCategory)
-  .put(protect, authorize('admin', 'manager'), updateCategory)
-  .delete(protect, authorize('admin'), deleteCategory);
+  .get(getCategory)
+  .put(
+    authorize('admin', 'manager'),
+    validate(categoryValidationRules),
+    updateCategory
+  )
+  .delete(
+    authorize('admin'),
+    deleteCategory
+  );
+
+// Get products by category
+router.get('/:id/products', getCategoryProducts);
 
 export default router;

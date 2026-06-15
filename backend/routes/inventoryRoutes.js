@@ -2,18 +2,32 @@ import express from 'express';
 import {
   getInventoryOverview,
   adjustStock,
+  bulkAdjustStock,
   getInventoryHistory,
   getLowStockProducts,
-  getOutOfStockProducts
+  getOutOfStockProducts,
+  getInventoryValue
 } from '../controllers/inventoryController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { protect, authorize } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.get('/overview', protect, getInventoryOverview);
-router.post('/adjust', protect, adjustStock);
-router.get('/history/:productId', protect, getInventoryHistory);
-router.get('/low-stock', protect, getLowStockProducts);
-router.get('/out-of-stock', protect, getOutOfStockProducts);
+// All routes require authentication
+router.use(protect);
+
+// Inventory overview
+router.get('/overview', getInventoryOverview);
+router.get('/value', getInventoryValue);
+
+// Stock adjustments
+router.post('/adjust', authorize('admin', 'manager'), adjustStock);
+router.post('/bulk-adjust', authorize('admin', 'manager'), bulkAdjustStock);
+
+// Stock history
+router.get('/history/:productId', getInventoryHistory);
+
+// Stock alerts
+router.get('/low-stock', getLowStockProducts);
+router.get('/out-of-stock', getOutOfStockProducts);
 
 export default router;
