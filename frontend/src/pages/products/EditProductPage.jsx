@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FiSave, FiArrowLeft, FiTrash2 } from 'react-icons/fi';
-import { useProducts } from '../../hooks/useProducts';
+import { useProducts } from '../../hooks/useProduct';
 import { productApi } from '../../api/productApi';
 import { categoryApi } from '../../api/categoryApi';
 import { useQuery } from '@tanstack/react-query';
