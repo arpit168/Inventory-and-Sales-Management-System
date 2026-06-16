@@ -6,6 +6,7 @@ import AppRoutes from './routes';
 import { useThemeStore } from './store/themeStore';
 import { useEffect } from 'react';
 
+
 // Configure QueryClient with production settings
 const queryClient = new QueryClient({
   defaultOptions: {

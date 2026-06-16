@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FiSave, FiArrowLeft } from 'react-icons/fi';
-import { useProducts } from '../../hooks/useProducts';
+import { useProducts } from '../../hooks/useProduct';
 import { useQuery } from '@tanstack/react-query';
 import { categoryApi } from '../../api/categoryApi';
 import Input from '../../components/common/Input';

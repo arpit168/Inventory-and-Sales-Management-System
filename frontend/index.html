@@ -7,11 +7,34 @@
     <meta name="description" content="Enterprise Inventory Management & Billing System" />
     <meta name="theme-color" content="#3b82f6" />
     <title>Inventory Management System</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" 
+      rel="stylesheet" 
+    />
+    
+    <!-- Prevent FOUC (Flash of Unstyled Content) -->
+    <script>
+      // Check for saved theme preference or system preference
+      (function() {
+        const savedTheme = localStorage.getItem('theme-storage');
+        if (savedTheme) {
+          try {
+            const parsed = JSON.parse(savedTheme);
+            if (parsed.state && parsed.state.theme === 'dark') {
+              document.documentElement.classList.add('dark');
+            }
+          } catch (e) {}
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
-  <body class="bg-gray-50 dark:bg-gray-900">
+  <body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

@@ -8,7 +8,7 @@ import {
   deleteCustomer,
   getCustomerPurchaseHistory
 } from '../controllers/customerController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { protect } from '../middleware/authMiddlewere.js';
 import { customerValidationRules } from '../middleware/validationMiddleware.js';
 
 const router = express.Router();

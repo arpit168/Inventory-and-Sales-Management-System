@@ -8,7 +8,7 @@ import {
   deleteCategory,
   getCategoryProducts
 } from '../controllers/categoryController.js';
-import { protect, authorize } from '../middleware/authMiddleware.js';
+import { protect, authorize } from '../middleware/authMiddlewere.js';
 import { categoryValidationRules, validate } from '../middleware/validationMiddleware.js';
 
 const router = express.Router();

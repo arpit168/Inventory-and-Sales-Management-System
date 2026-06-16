@@ -13,7 +13,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
-import customerRoutes from './routes/customerRoutes.js';
+import customerRoutes from './routes/costumerRoutes.js';
 import salesRoutes from './routes/salesRoutes.js';
 import inventoryRoutes from './routes/inventoryRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';

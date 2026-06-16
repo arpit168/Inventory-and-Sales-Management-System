@@ -8,7 +8,7 @@ import {
   exportInventoryPDF,
   exportInventoryExcel
 } from '../controllers/reportController.js';
-import { protect, authorize } from '../middleware/authMiddleware.js';
+import { protect } from '../middleware/authMiddlewere.js';
 
 const router = express.Router();
 
