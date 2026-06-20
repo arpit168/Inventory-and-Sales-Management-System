@@ -50,7 +50,13 @@ const ReportsPage = () => {
     }
   };
 
-  if (loading) return <Loading />;
+ if (loading) {
+  return (
+    <div className="flex items-center justify-center h-96">
+      <Loading />
+    </div>
+  );
+}
 
   const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899'];
 
