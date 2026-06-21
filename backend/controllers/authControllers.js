@@ -55,7 +55,7 @@ export const register = async (req, res, next) => {
       });
     }
 
-    const { name, email, password, phone } = req.body;
+    const { name, email, password, phone,role } = req.body;
 
     // Check if user exists
     const userExists = await User.findOne({ email: email.toLowerCase() });
@@ -69,7 +69,7 @@ export const register = async (req, res, next) => {
       email: email.toLowerCase(),
       password,
       phone,
-      role: 'staff' // Default role for self-registration
+      role ,// Default role for self-registration
     });
 
     // Log activity
