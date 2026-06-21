@@ -12,22 +12,22 @@ let server;
 const startServer = async () => {
   try {
     server = app.listen(PORT, () => {
-      console.log(`✓ Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-      console.log(`✓ API available at http://localhost:${PORT}/api`);
-      console.log(`✓ Health check at http://localhost:${PORT}/api/health`);
+      // console.log(`✓ Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+      // console.log(`✓ API available at http://localhost:${PORT}/api`);
+      // console.log(`✓ Health check at http://localhost:${PORT}/api/health`);
     });
 
     // Graceful shutdown
     const gracefulShutdown = async (signal) => {
-      console.log(`\n${signal} received. Shutting down gracefully...`);
+      // console.log(`\n${signal} received. Shutting down gracefully...`);
       
       if (server) {
         server.close(async () => {
-          console.log('HTTP server closed.');
+          // console.log('HTTP server closed.');
           
           try {
             await mongoose.connection.close();
-            console.log('MongoDB connection closed.');
+            // console.log('MongoDB connection closed.');
           } catch (err) {
             console.error('Error closing MongoDB connection:', err);
           }

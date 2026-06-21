@@ -28,8 +28,8 @@ const ProductsPage = () => {
     try {
       const { data } = await API.get('/categories');
 
-      console.log("Categories Response:", data);
-      console.log("Is Array:", Array.isArray(data));
+    //  console.log("Categories Response:", data);
+    //  console.log("Is Array:", Array.isArray(data));
 
       setCategories(data);
     } catch (error) {
@@ -130,7 +130,7 @@ const ProductsPage = () => {
                 </tr>
               ) : (
                 products.map((product) => (
-                  <tr key={product._id} className="hover:bg-gray-50 dark:hover:bg-gray-750">
+                  <tr key={product._id} className="hover:bg-black dark:hover:bg-gray-750">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
                         {product.image && (

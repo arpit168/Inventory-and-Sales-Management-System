@@ -85,7 +85,7 @@ app.use((req, res, next) => {
   res.on('finish', () => {
     const duration = Date.now() - start;
     if (process.env.NODE_ENV === 'development') {
-      console.log(`${req.method} ${req.originalUrl} ${res.statusCode} - ${duration}ms`);
+      // console.log(`${req.method} ${req.originalUrl} ${res.statusCode} - ${duration}ms`);
     }
   });
   next();

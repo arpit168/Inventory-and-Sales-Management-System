@@ -121,6 +121,7 @@ const AddProductPage = () => {
                 className="block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary-500"
               >
                 <option value="">Select category</option>
+                 <option value="category">Regular</option>
                 {categories?.map((cat) => (
                   <option key={cat._id} value={cat._id}>{cat.name}</option>
                 ))}
