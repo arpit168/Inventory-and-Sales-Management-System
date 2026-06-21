@@ -25,14 +25,11 @@ const userSchema = new mongoose.Schema({
     minlength: [6, 'Password must be at least 6 characters'],
     select: false
   },
-  role: {
-    type: String,
-    enum: {
-      values: ['admin', 'manager', 'staff'],
-      message: '{VALUE} is not a valid role'
-    },
-    default: 'staff'
-  },
+ role: {
+  type: String,
+  enum: ['admin', 'manager', 'staff'],
+  default: 'staff',
+},
   phone: {
     type: String,
     trim: true,

@@ -13,14 +13,21 @@ const AddProductPage = () => {
   const navigate = useNavigate();
   const { createProduct } = useProducts();
   const [imagePreview, setImagePreview] = useState(null);
-  
-  const { data: categories } = useQuery({
+
+  const { data: categoriesData = [] } = useQuery({
     queryKey: ['categories-all'],
     queryFn: async () => {
       const { data } = await categoryApi.getAllCategories();
-      return data;
+
+      if (Array.isArray(data)) return data;
+
+      return data.categories || data.data || [];
     }
   });
+
+  const categories = Array.isArray(categoriesData)
+    ? categoriesData
+    : [];
 
   const { register, handleSubmit, formState: { errors }, watch } = useForm({
     defaultValues: {
@@ -44,7 +51,7 @@ const AddProductPage = () => {
   const onSubmit = async (data) => {
     const formData = new FormData();
     Object.keys(data).forEach(key => {
-      if (key === 'image' && data.image[0]) {
+      if (key === 'image' && data.image?.[0]) {
         formData.append('image', data.image[0]);
       } else {
         formData.append(key, data[key]);
@@ -53,7 +60,6 @@ const AddProductPage = () => {
 
     try {
       await createProduct(formData);
-      toast.success('Product created successfully');
       navigate('/products');
     } catch (error) {
       // Error handled in hook
@@ -77,7 +83,7 @@ const AddProductPage = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Basic Information</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Input
               label="Product Name"
@@ -88,7 +94,7 @@ const AddProductPage = () => {
 
             <Input
               label="SKU"
-              {...register('sku', { 
+              {...register('sku', {
                 required: 'SKU is required',
                 pattern: {
                   value: /^[A-Z0-9-]+$/,
@@ -147,13 +153,13 @@ const AddProductPage = () => {
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Pricing & Stock</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Input
               label="Purchase Price"
               type="number"
               step="0.01"
-              {...register('purchasePrice', { 
+              {...register('purchasePrice', {
                 required: 'Purchase price is required',
                 min: { value: 0, message: 'Must be positive' }
               })}
@@ -165,7 +171,7 @@ const AddProductPage = () => {
               label="Selling Price"
               type="number"
               step="0.01"
-              {...register('sellingPrice', { 
+              {...register('sellingPrice', {
                 required: 'Selling price is required',
                 min: { value: 0, message: 'Must be positive' }
               })}
@@ -207,7 +213,7 @@ const AddProductPage = () => {
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Product Image</h2>
-          
+
           <div className="flex items-center space-x-6">
             <div className="w-32 h-32 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
               {imagePreview ? (

@@ -54,8 +54,11 @@ const [loading, setLoading] = useState(true);
       }),
     ]);
 
-    console.log("Stats:", statsRes.data);
-    console.log("Analytics:", analyticsRes.data);
+    console.log("Stats Response:", statsRes);
+console.log("Stats Data:", statsRes.data);
+
+console.log("Analytics Response:", analyticsRes);
+console.log("Analytics Data:", analyticsRes.data);
 
     setStats(statsRes.data || {});
 
