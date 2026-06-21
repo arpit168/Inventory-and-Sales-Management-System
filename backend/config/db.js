@@ -14,8 +14,8 @@ const connectDB = async (retries = MAX_RETRIES) => {
       heartbeatFrequencyMS: 10000,
     });
 
-    console.log(`✓ MongoDB Connected: ${conn.connection.host}`);
-    console.log(`✓ Database: ${conn.connection.name}`);
+    // console.log(`✓ MongoDB Connected: ${conn.connection.host}`);
+    // console.log(`✓ Database: ${conn.connection.name}`);
     
     // Handle connection events
     mongoose.connection.on('error', (err) => {
@@ -27,13 +27,13 @@ const connectDB = async (retries = MAX_RETRIES) => {
     });
 
     mongoose.connection.on('reconnected', () => {
-      console.log('MongoDB reconnected successfully.');
+      // console.log('MongoDB reconnected successfully.');
     });
 
     // Enable debugging in development
     if (process.env.NODE_ENV === 'development') {
       mongoose.set('debug', (collectionName, method, query, doc) => {
-        console.log(`Mongoose: ${collectionName}.${method}`, JSON.stringify(query));
+        // console.log(`Mongoose: ${collectionName}.${method}`, JSON.stringify(query));
       });
     }
 
@@ -42,7 +42,7 @@ const connectDB = async (retries = MAX_RETRIES) => {
     console.error(`MongoDB connection error: ${error.message}`);
     
     if (retries > 0) {
-      console.log(`Retrying connection in ${RETRY_DELAY / 1000} seconds... (${retries} attempts remaining)`);
+      // console.log(`Retrying connection in ${RETRY_DELAY / 1000} seconds... (${retries} attempts remaining)`);
       await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
       return connectDB(retries - 1);
     }

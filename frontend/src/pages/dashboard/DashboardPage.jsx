@@ -45,7 +45,7 @@ const [loading, setLoading] = useState(true);
   try {
     setLoading(true);
 
-    console.log("Fetching dashboard data...");
+    // console.log("Fetching dashboard data...");
 
     const [statsRes, analyticsRes] = await Promise.all([
       API.get("/reports/dashboard-stats"),
@@ -54,11 +54,11 @@ const [loading, setLoading] = useState(true);
       }),
     ]);
 
-    console.log("Stats Response:", statsRes);
-console.log("Stats Data:", statsRes.data);
+    // console.log("Stats Response:", statsRes);
+// console.log("Stats Data:", statsRes.data);
 
-console.log("Analytics Response:", analyticsRes);
-console.log("Analytics Data:", analyticsRes.data);
+// console.log("Analytics Response:", analyticsRes);
+// console.log("Analytics Data:", analyticsRes.data);
 
     setStats(statsRes.data || {});
 

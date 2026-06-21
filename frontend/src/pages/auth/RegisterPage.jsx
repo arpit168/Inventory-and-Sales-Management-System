@@ -210,7 +210,7 @@ const RegisterPage = () => {
                 onClick={() =>
                   setShowPassword(!showPassword)
                 }
-                className="absolute right-3 top-1/2 -translate-y-1/2"
+                className="absolute right-3 text-white top-1/2 -translate-y-1/2"
               >
                 {showPassword ? (
                   <EyeOff size={16} />
@@ -247,9 +247,29 @@ const RegisterPage = () => {
                 placeholder="Confirm Password"
                 className="w-full rounded-xl border border-secondary-300 bg-white py-2.5 pl-10 pr-10 text-sm dark:bg-secondary-900 dark:border-secondary-700"
               />
-              {/* Role */}
+              
+
+              <button
+                type="button"
+                onClick={() =>
+                  setShowConfirmPassword(
+                    !showConfirmPassword
+                  )
+                }
+                className="absolute right-3 text-white top-1/2 -translate-y-1/2"
+              >
+                {showConfirmPassword ? (
+                  <EyeOff size={16} />
+                ) : (
+                  <Eye size={16} />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+        {/* Role */}
               <div>
-                <label className="mb-1 block text-sm font-medium text-secondary-700 dark:text-secondary-300">
+                <label className="mb-1 block text-sm font-medium text-secondary-200 dark:text-secondary-300">
                   Role
                 </label>
 
@@ -257,7 +277,7 @@ const RegisterPage = () => {
                   {...register('role', {
                     required: 'Role is required',
                   })}
-                  className="w-full rounded-xl border border-secondary-300 bg-white py-2.5 px-3 text-sm dark:bg-secondary-900 dark:border-secondary-700"
+                  className="w-full rounded-xl border border-secondary-300 bg-white py-2.5 px-3 text-sm text-gray-400 dark:bg-secondary-900 dark:border-secondary-700"
                 >
                   <option value="staff">Staff</option>
                   <option value="manager">Manager</option>
@@ -270,25 +290,6 @@ const RegisterPage = () => {
                   </p>
                 )}
               </div>
-
-              <button
-                type="button"
-                onClick={() =>
-                  setShowConfirmPassword(
-                    !showConfirmPassword
-                  )
-                }
-                className="absolute right-3 top-1/2 -translate-y-1/2"
-              >
-                {showConfirmPassword ? (
-                  <EyeOff size={16} />
-                ) : (
-                  <Eye size={16} />
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
 
         {/* Terms */}
         <label className="flex items-start gap-2 text-xs text-secondary-600 dark:text-secondary-400">
