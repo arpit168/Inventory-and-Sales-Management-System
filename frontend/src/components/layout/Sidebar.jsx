@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  FiHome, 
-  FiPackage, 
-  FiGrid, 
-  FiShoppingCart, 
-  FiUsers, 
-  FiBell, 
+import {
+  FiHome,
+  FiPackage,
+  FiGrid,
+  FiShoppingCart,
+  FiUsers,
+  FiBell,
   FiFileText,
   FiChevronLeft,
   FiChevronRight,
@@ -16,8 +16,8 @@ import {
 
 const menuItems = [
   { path: '/dashboard', icon: FiHome, label: 'Dashboard', section: 'core' },
-  { 
-    icon: FiPackage, 
+  {
+    icon: FiPackage,
     label: 'Products',
     section: 'core',
     subItems: [
@@ -26,8 +26,8 @@ const menuItems = [
     ]
   },
   { path: '/categories', icon: FiGrid, label: 'Categories', section: 'core' },
-  { 
-    icon: FiLayers, 
+  {
+    icon: FiLayers,
     label: 'Inventory',
     section: 'operations',
     subItems: [
@@ -56,15 +56,15 @@ const Sidebar = () => {
   const location = useLocation();
 
   const toggleSubmenu = (label) => {
-    setExpandedItems(prev => 
-      prev.includes(label) 
+    setExpandedItems(prev =>
+      prev.includes(label)
         ? prev.filter(item => item !== label)
         : [...prev, label]
     );
   };
 
   const isActive = (path) => location.pathname === path;
-  const isSubmenuActive = (subItems) => 
+  const isSubmenuActive = (subItems) =>
     subItems?.some(item => location.pathname === item.path);
 
   // Group items by section
@@ -101,7 +101,7 @@ const Sidebar = () => {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-3 py-6">
-        {Object.entries(groupedItems).map(([sectionKey, items]) => 
+        {Object.entries(groupedItems).map(([sectionKey, items]) =>
           items.length > 0 && (
             <div key={sectionKey} className="mb-6">
               {/* Section Header */}
@@ -125,8 +125,8 @@ const Sidebar = () => {
                           className={`
                             w-full flex items-center justify-between px-3 py-2.5 rounded-lg
                             transition-all duration-200 relative group
-                            ${isSubmenuActive(item.subItems) 
-                              ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300' 
+                            ${isSubmenuActive(item.subItems)
+                              ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300'
                               : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                             }
                           `}
@@ -135,13 +135,12 @@ const Sidebar = () => {
                             <item.icon className="w-5 h-5 shrink-0" />
                             {!collapsed && <span className="ml-3 text-sm font-medium truncate">{item.label}</span>}
                           </div>
-                          
+
                           {!collapsed && (
-                            <FiChevronRight 
+                            <FiChevronRight
                               size={16}
-                              className={`shrink-0 ml-2 transition-transform duration-200 ${
-                                expandedItems.includes(item.label) ? 'rotate-90' : ''
-                              }`}
+                              className={`shrink-0 ml-2 transition-transform duration-200 ${expandedItems.includes(item.label) ? 'rotate-90' : ''
+                                }`}
                             />
                           )}
                         </button>
@@ -164,9 +163,8 @@ const Sidebar = () => {
                               >
                                 <span className="truncate">{subItem.label}</span>
                                 {subItem.badge && (
-                                  <span className={`ml-2 h-2 w-2 rounded-full shrink-0 ${
-                                    subItem.badge === 'alert' ? 'bg-red-500' : 'bg-amber-500'
-                                  }`} />
+                                  <span className={`ml-2 h-2 w-2 rounded-full shrink-0 ${subItem.badge === 'alert' ? 'bg-red-500' : 'bg-amber-500'
+                                    }`} />
                                 )}
                               </Link>
                             ))}
@@ -192,9 +190,8 @@ const Sidebar = () => {
                         </div>
 
                         {item.badge && (
-                          <span className={`shrink-0 h-2 w-2 rounded-full ml-2 ${
-                            item.badge === 'notification' ? 'bg-amber-500' : 'bg-red-500'
-                          }`} />
+                          <span className={`shrink-0 h-2 w-2 rounded-full ml-2 ${item.badge === 'notification' ? 'bg-amber-500' : 'bg-red-500'
+                            }`} />
                         )}
                       </Link>
                     )}
@@ -210,8 +207,8 @@ const Sidebar = () => {
       <div className="border-t border-gray-200 dark:border-gray-800 px-3 py-4">
         <div className={`
           flex items-center gap-3 p-3 rounded-lg
-          ${collapsed 
-            ? 'justify-center' 
+          ${collapsed
+            ? 'justify-center'
             : 'bg-gray-50 dark:bg-gray-800/50'
           }
         `}>

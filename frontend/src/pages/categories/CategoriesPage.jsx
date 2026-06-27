@@ -39,6 +39,8 @@ const CategoriesPage = () => {
     try {
       setLoading(true);
       const { data } = await categoryApi.getCategories({ limit: 100 });
+      console.log(data);
+      
       setCategories(data.categories || data);
     } catch (error) {
       toast.error('Failed to fetch categories');
