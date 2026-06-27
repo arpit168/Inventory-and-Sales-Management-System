@@ -1,7 +1,7 @@
 import { FiPackage } from 'react-icons/fi';
 
 const EmptyState = ({
-  icon: Icon = FiPackage,
+  Icon = FiPackage,
   title = 'No data found',
   description = 'Get started by creating your first item.',
   action,
