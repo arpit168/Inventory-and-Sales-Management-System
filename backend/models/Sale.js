@@ -156,7 +156,7 @@ const saleSchema = new mongoose.Schema({
 });
 
 // Indexes
-saleSchema.index({ invoiceNumber: 1 });
+
 saleSchema.index({ createdAt: -1 });
 saleSchema.index({ 'items.product': 1 });
 saleSchema.index({ soldBy: 1 });
