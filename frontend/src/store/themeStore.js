@@ -1,18 +1,23 @@
-import { create } from 'zustand';
+import { create } from "zustand";
+
+const getInitialTheme = () => {
+  return localStorage.getItem("theme") || "light";
+};
 
 export const useThemeStore = create((set) => ({
-  theme: localStorage.getItem('theme') || 'light',
-  
-  toggleTheme: () => {
+  theme: getInitialTheme(),
+
+  toggleTheme: () =>
     set((state) => {
-      const newTheme = state.theme === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', newTheme);
+      const newTheme = state.theme === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
       return { theme: newTheme };
-    });
-  },
+    }),
 
   setTheme: (theme) => {
-    localStorage.setItem('theme', theme);
+    console.log(theme);
+
+    localStorage.setItem("theme", theme);
     set({ theme });
-  }
+  },
 }));

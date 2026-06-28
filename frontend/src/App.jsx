@@ -70,7 +70,7 @@ function App() {
 
   // Check system preference on first load
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme-storage');
+    const savedTheme = localStorage.getItem('theme');
     if (!savedTheme) {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       useThemeStore.getState().setTheme(prefersDark ? 'dark' : 'light');
